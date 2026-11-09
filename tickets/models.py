@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+from django.db.models import Q
 
 import tickets
 
@@ -37,7 +39,17 @@ class Trip(models.Model):
     arrival_time = models.DateTimeField(verbose_name="ჩასვლის დრო")
 
     price = models.DecimalField(max_digits=8, decimal_places=2, verbose_name="ბილეთის ფასი ₾")
-    available_seats = models.PositiveIntegerField(verbose_name="თავისუფალი ადგილების რაოდენობა")
+    # available_seats = models.PositiveIntegerField(verbose_name="თავისუფალი ადგილების რაოდენობა")
+
+    @property
+    def available_seats(self):
+        now = timezone.now()
+        booked_count = self.tickets.filter(
+            Q(status__in=[Ticket.TicketStatus.ACTIVE, Ticket.TicketStatus.USED]) |
+            Q(status=Ticket.TicketStatus.PENDING, expires_at__gt=now)
+        ).count()
+
+        return self.train.total_seats - booked_count
 
     def __str__(self):
         return f"{self.departure_station.name} -> {self.arrival_station.name} | {self.departure_time.strftime('%Y-%m-%d %H:%M')}"
@@ -50,6 +62,7 @@ class Trip(models.Model):
 class Ticket(models.Model):
 
     class TicketStatus(models.TextChoices):
+        PENDING = 'PENDING', 'მოლოდინში'
         ACTIVE = 'ACTIVE', 'აქტიური'
         USED = 'USED', 'გამოყენებული'
         CANCELLED = 'CANCELLED', 'გაუქმებული'
@@ -58,11 +71,12 @@ class Ticket(models.Model):
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE, verbose_name="რეისი", related_name="tickets")
     seat_number = models.PositiveIntegerField(verbose_name="ადგილის ნომერი")
     purchase_date = models.DateTimeField(auto_now_add=True, verbose_name="ყიდვის თარიღი")
+    expires_at = models.DateTimeField(null=True, blank=True, verbose_name="ჯავშნის ვადის გასვლის დრო")
 
     status = models.CharField(
         max_length=20,
         choices=TicketStatus.choices,
-        default=TicketStatus.ACTIVE,
+        default=TicketStatus.PENDING,
         verbose_name="ბილეთის სტატუსი"
     )
 

@@ -7,6 +7,10 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticate
 from .models import Station, Train, Trip, Ticket
 from .serializers import (StationSerializer, TrainSerializer,
                           TripSerializer, TicketSerializer)
+from django.utils import timezone
+from django.db.models import Q
+from datetime import timedelta
+from django_filters.rest_framework import DjangoFilterBackend
 
 class StationViewSet(viewsets.ModelViewSet):
     queryset = Station.objects.all()
@@ -23,6 +27,13 @@ class TripViewSet(viewsets.ModelViewSet):
     serializer_class = TripSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = {
+        'departure_station': ['exact'],
+        'arrival_station': ['exact'],
+        'departure_time': ['date', 'gte', 'lte'],
+    }
+
 class TicketViewSet(viewsets.ModelViewSet):
     serializer_class = TicketSerializer
     permission_classes = [IsAuthenticated]
@@ -31,11 +42,21 @@ class TicketViewSet(viewsets.ModelViewSet):
         return Ticket.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
-        ticket = serializer.save(user=self.request.user)
+        now = timezone.now()
+        expire_time = now + timedelta(minutes=10)
+
+        ticket = serializer.save(
+            user=self.request.user,
+            status=Ticket.TicketStatus.PENDING,
+            expires_at=expire_time
+        )
+
+        trip = ticket.trip
+
         Payment.objects.create(
             ticket=ticket,
-            amount=ticket.trip.price,
-            status=Payment.PaymentStatus.SUCCESS,
+            amount=trip.price,
+            status=Payment.PaymentStatus.PENDING,
             transaction_id=str(uuid.uuid4())
         )
 
@@ -47,7 +68,12 @@ class TripSeatMapView(APIView):
         except Trip.DoesNotExist:
             return Response({"error": "რეისი ვერ მოიძებნა"}, status=404)
 
-        booked_seats = Ticket.objects.filter(trip=trip).values_list('seat_number', flat=True)
+        now = timezone.now()
+
+        booked_seats = Ticket.objects.filter(trip=trip).filter(
+            Q(status__in=[Ticket.TicketStatus.ACTIVE, Ticket.TicketStatus.USED]) |
+            Q(status=Ticket.TicketStatus.PENDING, expires_at__gt=now)
+        ).values_list('seat_number', flat=True)
 
         total_seats = trip.train.total_seats
         seats_status = []

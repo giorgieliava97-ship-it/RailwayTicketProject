@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'debug_toolbar',
     'rest_framework.authtoken',
+    'django_filters',
+    'corsheaders',
 
     # Local apps
     'tickets',
@@ -59,6 +61,7 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -146,4 +149,9 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ],
+    'DEFAULT_FILTER_BACKENDS': [
+            'django_filters.rest_framework.DjangoFilterBackend',
+    ],
 }
+
+CORS_ALLOW_ALL_ORIGINS = True
