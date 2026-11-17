@@ -1,11 +1,18 @@
-
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser
+from .models import CustomUser, SavedPassenger
+
+
+class SavedPassengerInline(admin.TabularInline):
+    model = SavedPassenger
+    extra = 0
+    fields = ("first_name", "last_name", "personal_id", "birth_date", "created_at")
+    readonly_fields = ("created_at",)
 
 
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
+    inlines = [SavedPassengerInline]
 
     list_display = (
         "username",
@@ -33,3 +40,10 @@ class CustomUserAdmin(UserAdmin):
             {"fields": ("phone_number", "personal_id")},
         ),
     )
+
+
+@admin.register(SavedPassenger)
+class SavedPassengerAdmin(admin.ModelAdmin):
+    list_display = ("first_name", "last_name", "personal_id", "user", "birth_date", "created_at")
+    search_fields = ("first_name", "last_name", "personal_id", "user__email")
+    list_filter = ("created_at",)
