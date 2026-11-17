@@ -1,0 +1,84 @@
+.info-cards-section {
+  max-width: 1400px;
+  margin: 70px auto 40px auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 10;
+}
+
+.info-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+
+.info-card {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.25s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+}
+
+.info-card-image-box {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #ffffff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.info-card-image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.info-card:hover .info-card-image-box img {
+  transform: scale(1.04);
+}
+
+/* დროებითი placeholder სანამ 4 ფოტოს მიაბამ */
+.info-card-placeholder {
+  color: #999;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  padding: 20px;
+}
+
+.info-card-title {
+  margin-top: 16px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+  line-height: 1.45;
+  transition: color 0.2s ease;
+}
+
+.info-card:hover .info-card-title {
+  color: #e30613;
+}
+
+@media (max-width: 992px) {
+  .info-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .info-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}

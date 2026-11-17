@@ -1,0 +1,88 @@
+.mobile-app-banner-section {
+  max-width: 1200px;
+  /* 🟢 კიდევ უფრო მეტად ვუმატებთ ზემოთა დაშორებას */
+  margin: 260px auto 40px auto; 
+  padding: 0 20px;
+}
+
+.mobile-app-banner-card {
+  background: #e30613; /* საქართველოს რკინიგზის წითელი ფერი */
+  border-radius: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px 60px;
+  position: relative;
+  overflow: visible; 
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(227, 6, 19, 0.2);
+}
+
+.mobile-app-banner-content {
+  max-width: 500px;
+  z-index: 2;
+}
+
+.mobile-app-banner-title {
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 700;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  margin-bottom: 25px;
+  letter-spacing: 0.3px;
+}
+
+.mobile-app-buttons {
+  display: flex;
+  gap: 14px;
+}
+
+.mobile-app-buttons a {
+  text-decoration: none !important;
+}
+
+.mobile-app-image-box {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-mockup-img {
+  max-width: 380px;
+  height: auto;
+  position: absolute;
+  right: 50px;
+  bottom: -30px;
+  transform: rotate(3deg);
+  filter: drop-shadow(0 25px 35px rgba(0,0,0,0.4));
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .mobile-app-banner-section {
+    margin-top: 80px;
+  }
+  .mobile-app-banner-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 20px;
+    overflow: hidden;
+  }
+  .mobile-app-buttons {
+    justify-content: center;
+  }
+  .mobile-app-banner-content {
+    max-width: 100%;
+    margin-bottom: 30px;
+  }
+  .mobile-mockup-img {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    max-width: 260px;
+    transform: none;
+    margin-top: 20px;
+  }
+}

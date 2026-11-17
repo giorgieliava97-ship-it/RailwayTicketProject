@@ -1,0 +1,308 @@
+.search-bar-wrapper {
+  position: absolute;
+  bottom: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  width: 94%;
+  max-width: 1400px; /* ან 1440px */
+}
+
+.search-bar-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 20px 24px 16px 24px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.18);
+  border-bottom: 5px solid #e30613; /* ორიგინალის წითელი ქვედა ხაზი */
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+/* სადგურების სექცია (საიდან / სად) */
+.station-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  flex: 2;
+  position: relative;
+}
+
+.station-col {
+  flex: 1;
+  position: relative;
+}
+
+.input-box {
+  background-color: #f4f5f7;
+  border-radius: 12px;
+  height: 54px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.input-box:hover,
+.input-box.active {
+  background-color: #ffffff;
+  border-color: #e30613;
+}
+
+.input-box-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #222;
+}
+
+.input-box-placeholder {
+  color: #555;
+  font-weight: 500;
+}
+
+/* სწრაფი არჩევის ქალაქები ქვემოთ */
+.quick-cities {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+  padding-left: 6px;
+}
+
+.quick-city-btn {
+  background: none;
+  border: none;
+  color: #e30613;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+}
+
+.quick-city-btn:hover {
+  text-decoration: underline;
+}
+
+/* შეტრიალების ღილაკი */
+.swap-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-top: 10px;
+  flex-shrink: 0;
+  color: #e30613;
+  font-size: 16px;
+  transition: transform 0.25s ease;
+}
+
+.swap-btn:hover {
+  transform: rotate(180deg);
+}
+
+/* სადგურების ჩამოსაშლელი სია */
+.station-dropdown {
+  position: absolute;
+  top: 62px;
+  left: 0;
+  width: 100%;
+  min-width: 220px;
+  max-height: 260px;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  border: 1px solid #eee;
+  padding: 8px;
+  z-index: 100;
+}
+
+.station-option {
+  padding: 10px 14px;
+  font-size: 14px;
+  color: #222;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.station-option:hover {
+  background-color: #fff0f0;
+  color: #e30613;
+}
+
+/* თარიღების ორმაგი ბლოკი */
+.dates-group {
+  flex: 1.5;
+  position: relative;
+}
+
+.dates-box {
+  background-color: #f4f5f7;
+  border-radius: 12px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  border: 1px solid transparent;
+}
+
+.date-half {
+  flex: 1;
+  height: 100%;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+  border-radius: 12px;
+}
+
+.date-half:hover {
+  background-color: #ebedf0;
+}
+
+.date-divider {
+  width: 1px;
+  height: 28px;
+  background-color: #d1d5db;
+}
+
+.clear-return-btn {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 2px 5px;
+}
+
+.clear-return-btn:hover {
+  color: #e30613;
+}
+
+/* კალენდრის პოპაპ ფანჯარა */
+.calendar-popup {
+  position: absolute;
+  top: 64px;
+  left: 0;
+  width: 320px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18);
+  border: 1px solid #eee;
+  padding: 20px;
+  z-index: 110;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  font-weight: 700;
+  font-size: 15px;
+  color: #222;
+}
+
+.cal-nav-btn {
+  background: #f4f5f7;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: bold;
+  color: #333;
+}
+
+.cal-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  text-align: center;
+}
+
+.cal-day {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #222;
+  transition: background 0.15s, color 0.15s;
+}
+
+.cal-day:hover:not(.disabled):not(.empty) {
+  background-color: #fff0f0;
+  color: #e30613;
+}
+
+.cal-day.selected {
+  background-color: #e30613;
+  color: #ffffff;
+}
+
+.cal-day.disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.cal-day.empty {
+  cursor: default;
+}
+
+/* ძებნის წითელი ღილაკი */
+.search-submit-btn {
+  background-color: #e30613;
+  color: #ffffff;
+  border: none;
+  height: 54px;
+  padding: 0 42px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+}
+
+.search-submit-btn:hover {
+  background-color: #c50510;
+}

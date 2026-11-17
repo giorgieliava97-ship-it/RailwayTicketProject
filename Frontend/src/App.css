@@ -1,0 +1,42 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  background-color: #f2f3f7;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.app-page-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: #f2f3f7;
+}
+
+/* გიგანტური GR ფონი */
+.gr-watermark-bg {
+  position: absolute;
+  top: 450px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 85vw;
+  max-width: 1600px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.8;
+}
+
+.app-content-layer {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  flex: 1; 
+  box-sizing: border-box;
+}

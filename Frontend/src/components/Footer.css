@@ -1,0 +1,144 @@
+.footer-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  margin-top: 60px;
+  position: relative;
+  z-index: 10;
+  padding: 0 30px; /* ზუსტად ისეთივე მინდვრები, როგორიც ნავბარს აქვს */
+}
+
+.footer-container {
+  width: 100%;
+  max-width: 100%; /* რომ აიღოს მთელი გამოყოფილი სივრცე */
+  background-color: #ffffff;
+  
+  /* ზედა კუთხეები მომრგვალებულია, ქვედა სწორი */
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+
+  /* მძლავრი ჩრდილი ზემოთ მიმართული „წამოწეული“ ეფექტისთვის */
+  box-shadow: 0 -20px 30px rgba(0, 0, 0, 0.08);
+  
+  padding: 35px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-logo {
+  height: 42px;
+  width: auto;
+  display: block;
+}
+
+.footer-copyright {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.5;
+}
+
+.footer-copyright strong {
+  display: block;
+  color: #222;
+  font-weight: 600;
+}
+
+.footer-hotline {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.hotline-icon-circle {
+  width: 46px;
+  height: 46px;
+  background-color: #e30613;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 20px;
+  box-shadow: 0 4px 12px rgba(227, 6, 19, 0.25);
+}
+
+.hotline-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.hotline-title {
+  font-size: 11px;
+  color: #e30613;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.hotline-number {
+  font-size: 28px;
+  font-weight: 800;
+  color: #e30613;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+
+.footer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.social-label {
+  font-size: 13px;
+  color: #666;
+  font-weight: 600;
+}
+
+.social-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.social-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: bold;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.social-btn.facebook {
+  background-color: #1877f2;
+}
+
+.social-btn.instagram {
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+}
+
+.social-btn.linkedin {
+  background-color: #0a66c2;
+}
+
+.social-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
