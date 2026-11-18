@@ -22,8 +22,8 @@ class TripSerializer(serializers.ModelSerializer):
     train = TrainSerializer(read_only=True)
     departure_station = StationSerializer(read_only=True)
     arrival_station = StationSerializer(read_only=True)
-    available_seats = serializers.SerializerMethodField()        # 🟢 აბრუნებს მთელ რიცხვს (ჯამს)
-    class_available_seats = serializers.SerializerMethodField() # 🟢 აბრუნებს ობიექტს კლასების მიხედვით
+    available_seats = serializers.SerializerMethodField()        #  აბრუნებს მთელ რიცხვს (ჯამს)
+    class_available_seats = serializers.SerializerMethodField() #  აბრუნებს ობიექტს კლასების მიხედვით
 
     route = serializers.CharField(read_only=True)
     total_stops = serializers.IntegerField(read_only=True)
@@ -157,7 +157,7 @@ class TicketSerializer(serializers.ModelSerializer):
         if overlapping_tickets.exists():
             raise serializers.ValidationError({"seat_number": "ეს ადგილი არჩეულ მონაკვეთზე უკვე დაკავებულია."})
 
-        # 🟢 2. მკაცრი შემოწმება: ხომ არ აქვს ამ მგზავრს (პირადი ნომრით) უკვე აქტიური ბილეთი ამ რეისზე
+        #  2. მკაცრი შემოწმება: ხომ არ აქვს ამ მგზავრს (პირადი ნომრით) უკვე აქტიური ბილეთი ამ რეისზე
         if id_number:
             existing_passenger_ticket = Ticket.objects.filter(trip=trip, id_number=id_number).filter(
                 Q(status__in=[Ticket.TicketStatus.ACTIVE, Ticket.TicketStatus.USED]) |

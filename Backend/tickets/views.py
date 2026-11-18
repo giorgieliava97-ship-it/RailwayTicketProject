@@ -56,7 +56,7 @@ class StationViewSet(viewsets.ModelViewSet):
     queryset = Station.objects.all()
     serializer_class = StationSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
-    pagination_class = None  # 🟢 უზრუნველყოფს, რომ სადგურების სია ფრონტენდმა სწორად მიიღოს
+    pagination_class = None  #  უზრუნველყოფს, რომ სადგურების სია ფრონტენდმა სწორად მიიღოს
 
 
 class TrainViewSet(viewsets.ModelViewSet):
@@ -163,7 +163,7 @@ class TicketViewSet(viewsets.ModelViewSet):
             transaction_id=str(uuid.uuid4())
         )
 
-# 🟢 ბილეთის დაბრუნების / გაუქმების ენდპოინტი
+#  ბილეთის დაბრუნების / გაუქმების ენდპოინტი
     @action(detail=True, methods=['post'])
     def return_ticket(self, request, pk=None):
         ticket = self.get_object()
@@ -179,7 +179,7 @@ class TicketViewSet(viewsets.ModelViewSet):
         ticket.status = Ticket.TicketStatus.CANCELLED
         ticket.save()
 
-        # თუ დაკავშირებული გადახდაც აქვს, მის სტატუსსაც მივხედოთ
+        # თუ დაკავშირებული გადახდაც აქვს, მის სტატუსსაც ვცვლით
         try:
             if hasattr(ticket, 'payment') and ticket.payment:
                 ticket.payment.status = 'CANCELLED'
@@ -230,7 +230,7 @@ class TripSeatMapView(APIView):
         # 2. ვგენერირებთ ვაგონის მატრიცას wagon_utils-ის დახმარებით
         wagon_data = generate_wagon_layout(trip.train, wagon_number=wagon_number, booked_seats=booked_seats)
 
-        # ვაბრუნებთ პირდაპირ wagon_data-ს, რადგან ის უკვე შეიცავს wagon_number-სა და layout-ს
+        # ვაბრუნებთ პირდაპირ wagon_data-ს
         return Response(wagon_data)
 
 
@@ -359,7 +359,7 @@ def book_manual_seats(request, trip_id):
                     "error": f"მგზავრი პირადი ნომრით ({p_id}) უკვე ფლობს ბილეთს ამ რეისზე!"
                 }, status=400)
 
-        # 🟢 3. შემოწმება: ხომ არ არის თავად ადგილი დაკავებული ამ სეგმენტზე
+        #  3. შემოწმება: ხომ არ არის თავად ადგილი დაკავებული ამ სეგმენტზე
         seat_num = int(p.get('seatNumber'))
         seat_occupied = Ticket.objects.filter(
             trip=trip,

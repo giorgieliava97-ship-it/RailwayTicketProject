@@ -1,4 +1,5 @@
 from django.contrib.auth.tokens import default_token_generator
+from django.utils import timezone
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.core.mail import send_mail
@@ -19,6 +20,7 @@ from rest_framework import viewsets
 from .models import SavedPassenger
 from .serializers import SavedPassengerSerializer
 from rest_framework import serializers
+
 
 User = get_user_model()
 
@@ -89,6 +91,7 @@ class VerifyEmailView(generics.GenericAPIView):
             return Response({"detail": "ანგარიში წარმატებით გააქტიურდა! შეგიძლიათ გაიაროთ ავტორიზაცია."}, status=status.HTTP_200_OK)
         else:
             return Response({"error": "ვერიფიკაციის ბმული არასწორია ან ვადაგასულია."}, status=status.HTTP_400_BAD_REQUEST)
+
 class PasswordResetRequestView(generics.GenericAPIView):
     permission_classes = [AllowAny]
     serializer_class = PasswordResetRequestSerializer
@@ -165,6 +168,16 @@ class UserProfileTicketsView(APIView):
 
     def get(self, request):
         user = request.user
+        now = timezone.now()
+
+        # ავტომატურად ვუცვლით სტატუსს USED-ად იმ ACTIVE ბილეთებს,
+        # რომელთა გასვლის/ჩასვლის დროც (leave_time) უკვე წარსულშია (< now)
+        Ticket.objects.filter(
+            user=user,
+            status=Ticket.TicketStatus.ACTIVE,
+            leave_time__lt=now
+        ).update(status=Ticket.TicketStatus.USED)
+
         tickets = Ticket.objects.filter(user=user).select_related(
             'trip', 'trip__train', 'trip__departure_station', 'trip__arrival_station'
         )

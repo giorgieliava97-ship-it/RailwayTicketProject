@@ -3,10 +3,6 @@
 უზრუნველყოფს გაშლილ, სიმეტრიულ და ჰორიზონტალურ განლაგებას ყველა ვაგონში.
 """
 
-"""
-ვაგონების სტრუქტურისა და ადგილების მატრიცის გენერაციის უტილიტები.
-"""
-
 def generate_wagon_layout(train, wagon_number=1, booked_seats=None):
     if booked_seats is None:
         booked_seats = set()

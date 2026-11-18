@@ -143,7 +143,7 @@ class Ticket(models.Model):
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE, verbose_name="რეისი", related_name="tickets")
     seat_number = models.PositiveIntegerField(verbose_name="ადგილის ნომერი")
 
-    # 🟢 მგზავრის პერსონალური მონაცემები თითოეული ბილეთისთვის
+    #  მგზავრის პერსონალური მონაცემები თითოეული ბილეთისთვის
     first_name = models.CharField(max_length=100, verbose_name="მგზავრის სახელი", default="")
     last_name = models.CharField(max_length=100, verbose_name="მგზავრის გვარი", default="")
     id_number = models.CharField(max_length=50, verbose_name="პირადი ნომერი", default="")

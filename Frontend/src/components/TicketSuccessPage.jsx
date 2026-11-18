@@ -55,6 +55,8 @@ export default function TicketSuccessPage() {
         setTickets(filtered);
         setLoading(false);
 
+        localStorage.removeItem('ticket_expires_at');
+
         if (filtered.length > 0) {
           const firstId = filtered[0].id;
           document.title = `ბილეთი TKT-${firstId} (${filtered.length})`;

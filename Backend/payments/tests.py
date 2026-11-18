@@ -3,7 +3,7 @@ from rest_framework import status
 from django.utils import timezone
 from datetime import timedelta
 from user.models import CustomUser
-from tickets.models import Ticket, Trip, Train, Station  # 🟢 სწორი იმპორტი tickets აპლიკაციიდან
+from tickets.models import Ticket, Trip, Train, Station
 from payments.models import Payment
 
 

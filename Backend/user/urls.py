@@ -6,7 +6,7 @@ from .views import (
     PasswordChangeView, UserProfileTicketsView, SavedPassengerViewSet
 )
 
-# 🟢 ვქმნით დეფოლტ როუტერს
+
 router = DefaultRouter()
 router.register(r'saved-passengers', SavedPassengerViewSet, basename='saved-passenger')
 
@@ -22,6 +22,5 @@ urlpatterns = [
     path('password-change/', PasswordChangeView.as_view(), name='password-change'),
     path('profile-tickets/', UserProfileTicketsView.as_view(), name='user-profile-tickets'),
 
-    # 🟢 რადგან ეს ფაილი ჩართულია /api/users/ ქვეშ, მისამართი ავტომატურად იქნება /api/users/saved-passengers/
     path('', include(router.urls)),
 ]

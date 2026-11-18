@@ -20,30 +20,35 @@ class PaymentViewSet(viewsets.ModelViewSet):
         ticket = payment.ticket
         now = timezone.now()
 
+        # 1. შემოწმება: ხომ არ არის უკვე გადახდილი
         if payment.status == Payment.PaymentStatus.SUCCESS:
             return Response(
                 {"detail": "ეს გადახდა უკვე წარმატებით არის შესრულებული."},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
+        # 2. შემოწმება: ხომ არ არის წარუმატებელი
         if payment.status == Payment.PaymentStatus.FAILED:
             return Response(
                 {"detail": "ეს გადახდა წარუმატებელია და მისი გააქტიურება შეუძლებელია."},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
+        # 3. 10-წუთიანი ტაიმერის ვალიდაცია
         if ticket.status == Ticket.TicketStatus.PENDING and ticket.expires_at and ticket.expires_at < now:
             return Response(
                 {"detail": "დროებითი ჯავშნის ვადა (10 წუთი) გასულია. ბილეთი გაუქმებულია."},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
+        # 4. გადახდის წარმატებით დასრულება
         payment.status = Payment.PaymentStatus.SUCCESS
         payment.save()
 
+        # 5. ბილეთის გააქტიურება
         ticket = payment.ticket
         ticket.status = Ticket.TicketStatus.ACTIVE
-        ticket.expires_at = None
+        ticket.expires_at = None # ვხსნით ტაიმერს, რადგან უკვე გადახდილია
         ticket.save()
 
         return Response({
